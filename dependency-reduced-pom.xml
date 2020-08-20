@@ -4,7 +4,7 @@
   <groupId>com.github.satta</groupId>
   <artifactId>balboa-backend-java</artifactId>
   <name>balboa-backend-java</name>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <description>A balboa backend for Java.</description>
   <url>https://github.com/satta/balboa-backend-java</url>
   <issueManagement>
@@ -81,6 +81,18 @@
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
             </goals>
           </execution>
         </executions>
