@@ -49,6 +49,14 @@
         </license>
     </licenses>
 
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <scm>
         <url>https://github.com/satta/balboa-backend-java</url>
         <connection>
@@ -58,7 +66,8 @@
             scm:git:ssh://git@github.com/satta/balboa-backend-java.git
         </developerConnection>
       <tag>balboa-backend-java-0.1</tag>
-  </scm>
+    </scm>
+
     <developers>
         <developer>
             <name>satta</name>
@@ -124,6 +133,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
