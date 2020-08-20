@@ -1,6 +1,7 @@
 # balboa-backend-java
 
 ![Java CI](https://github.com/satta/balboa-backend-java/workflows/Java%20CI/badge.svg)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.satta/balboa-backend-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.satta/balboa-backend-java)
 
 This is a balboa backend connector for Java. It takes care of the boring msgpack
 deserialization and validation, and provides a pluggable interface for backends
