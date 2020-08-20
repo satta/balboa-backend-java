@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,20 +31,20 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DumpRequestTests {
+public class BackupRequestTests {
     @Test
     @DisplayName("dump request msgpack round-trip")
     void msgPackRoundtrip() {
-        DumpRequest d = new DumpRequest();
-        d.path = "foo";
+        BackupRequest b = new BackupRequest();
+        b.path = "foo";
         MessageBufferPacker mp = MessagePack.newDefaultBufferPacker();
         try {
-            d.pack(mp);
+            b.pack(mp);
             mp.flush();
             byte[] v = mp.toByteArray();
             MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(v);
-            DumpRequest d2 = DumpRequest.unpack(unpacker);
-            assertEquals(d, d2);
+            BackupRequest b2 = BackupRequest.unpack(unpacker);
+            assertEquals(b, b2);
         } catch (IOException e) {
             fail();
         }
@@ -53,14 +53,14 @@ public class DumpRequestTests {
     @Test
     @DisplayName("dump request equals override")
     void equalsImplementation() {
-        DumpRequest d = new DumpRequest();
-        d.path = "foo";
-        assertEquals(d, d);
-        DumpRequest d2 = new DumpRequest();
-        d2.path = "foo";
-        assertEquals(d, d2);
-        assertEquals(d2, d);
-        d2.path = "bar";
-        assertNotEquals(d, d2);
+        BackupRequest b = new BackupRequest();
+        b.path = "foo";
+        assertEquals(b, b);
+        BackupRequest b2 = new BackupRequest();
+        b2.path = "foo";
+        assertEquals(b, b2);
+        assertEquals(b2, b);
+        b2.path = "bar";
+        assertNotEquals(b, b2);
     }
 }

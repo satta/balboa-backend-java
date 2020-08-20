@@ -11,7 +11,7 @@
         <license.dir>${basedir}</license.dir>
     </properties>
 
-    <groupId>name.steinbiss.balboa.backend</groupId>
+    <groupId>com.github.satta</groupId>
     <artifactId>balboa-backend-java</artifactId>
     <version>1.0-SNAPSHOT</version>
 

@@ -19,16 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-public class ProtocolException extends RuntimeException {
-    private String message;
+import java.util.List;
 
-    public ProtocolException(String message) {
-        this.message = message;
+public class PrintProcessor implements InputProcessor {
+
+    @Override
+    public void handle(Observation o) throws BalboaException {
+        System.out.println(o);
     }
 
-    public String getMessage() {
-        return message;
+    @Override
+    public void handle(DumpRequest dr) throws BalboaException {
+        System.out.println("Dump request to " + dr.path);
+        throw new BalboaException("not implemented yet");
     }
+
+    @Override
+    public void handle(BackupRequest br) throws BalboaException {
+        System.out.println("Backup request with path " + br.path);
+        throw new BalboaException("not implemented yet");
+    }
+
+    @Override
+    public void handle(Query q, List<Observation> obs) throws BalboaException {
+        System.out.println("Query " + q);
+    }
+
+    @Override
+    public void close() {}
 }

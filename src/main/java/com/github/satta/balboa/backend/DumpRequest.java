@@ -19,34 +19,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-import java.util.List;
+import org.msgpack.core.MessagePacker;
+import org.msgpack.core.MessageUnpacker;
 
-public class PrintProcessor implements InputProcessor {
+import java.io.IOException;
 
-    @Override
-    public void handle(Observation o) throws BalboaException {
-        System.out.println(o);
+public class DumpRequest {
+    public String path;
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DumpRequest d2 = (DumpRequest) o;
+        return d2.path.equals(this.path);
     }
 
-    @Override
-    public void handle(DumpRequest dr) throws BalboaException {
-        System.out.println("Dump request to " + dr.path);
-        throw new BalboaException("not implemented yet");
+    public static DumpRequest unpack(MessageUnpacker unpacker) throws IOException {
+        DumpRequest dr = new DumpRequest();
+        if (unpacker.unpackMapHeader() != 1) {
+            throw new ProtocolException("inner input map does not have 1 field");
+        }
+        String iv = unpacker.unpackString();
+        if (!iv.equals("P")) {
+            throw new ProtocolException("inner input map does not have 'P' field");
+        }
+        dr.path = unpacker.unpackString();
+        return dr;
     }
 
-    @Override
-    public void handle(BackupRequest br) throws BalboaException {
-        System.out.println("Backup request with path " + br.path);
-        throw new BalboaException("not implemented yet");
+    public void pack(MessagePacker packer) throws IOException {
+        packer
+                .packMapHeader(1)
+                .packString("P")
+                .packString(this.path);
     }
-
-    @Override
-    public void handle(Query q, List<Observation> obs) throws BalboaException {
-        System.out.println("Query " + q);
-    }
-
-    @Override
-    public void close() {}
 }

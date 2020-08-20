@@ -19,12 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-public class BalboaException extends RuntimeException {
+public class ProtocolException extends RuntimeException {
     private String message;
 
-    public BalboaException(String message) {
+    public ProtocolException(String message) {
         this.message = message;
     }
 

@@ -19,44 +19,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-import org.msgpack.core.MessagePacker;
-import org.msgpack.core.MessageUnpacker;
-
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 
-public class DumpRequest {
-    public String path;
+public class BackendWorker implements Runnable {
+    private BackendEngine e;
+    private InputProcessor p;
+    private BufferedInputStream ins;
+    private BufferedOutputStream outs;
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DumpRequest d2 = (DumpRequest) o;
-        return d2.path.equals(this.path);
+    public BackendWorker(Socket socket, InputProcessor p) throws IOException {
+        this.ins = new BufferedInputStream(socket.getInputStream());
+        this.outs = new BufferedOutputStream(socket.getOutputStream());
+        this.e = new BackendEngine(this.ins, this.outs);
+        this.p = p;
     }
 
-    public static DumpRequest unpack(MessageUnpacker unpacker) throws IOException {
-        DumpRequest dr = new DumpRequest();
-        if (unpacker.unpackMapHeader() != 1) {
-            throw new ProtocolException("inner input map does not have 1 field");
+    public void run() {
+        try {
+            this.e.run(this.p);
+            this.ins.close();
+            this.outs.close();
+            this.p.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
-        String iv = unpacker.unpackString();
-        if (!iv.equals("P")) {
-            throw new ProtocolException("inner input map does not have 'P' field");
-        }
-        dr.path = unpacker.unpackString();
-        return dr;
-    }
-
-    public void pack(MessagePacker packer) throws IOException {
-        packer
-                .packMapHeader(1)
-                .packString("P")
-                .packString(this.path);
     }
 }

@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,51 +31,36 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ObservationTests {
+public class QueryTests {
     @Test
-    @DisplayName("observation msgpack round-trip")
+    @DisplayName("query msgpack round-trip")
     void msgPackRoundtrip() {
-        Observation o = new Observation();
-        o.setRdata("rdata");
-        o.setRrname("rrname");
-        o.setRrtype("X");
-        o.setFirst_seen(12345);
-        o.setLast_seen(54321);
-        o.setCount(2);
+        Query q = new Query();
+        q.setRrname("foo");
         MessageBufferPacker mp = MessagePack.newDefaultBufferPacker();
         try {
-            o.pack(mp);
+            q.pack(mp);
             mp.flush();
             byte[] v = mp.toByteArray();
             MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(v);
-            Observation o2 = Observation.unpack(unpacker);
-            assertEquals(o, o2);
+            Query q2 = Query.unpack(unpacker);
+            assertEquals(q, q2);
         } catch (IOException e) {
             fail();
         }
     }
 
     @Test
-    @DisplayName("observation equals override")
+    @DisplayName("query equals override")
     void equalsImplementation() {
-        Observation o = new Observation();
-        o.setRdata("rdata");
-        o.setRrname("rrname");
-        o.setRrtype("X");
-        o.setFirst_seen(12345);
-        o.setLast_seen(54321);
-        o.setCount(2);
-        assertEquals(o, o);
-        Observation o2 = new Observation();
-        o2.setRdata("rdata");
-        o2.setRrname("rrname");
-        o2.setRrtype("X");
-        o2.setFirst_seen(12345);
-        o2.setLast_seen(54321);
-        o2.setCount(2);
-        assertEquals(o, o2);
-        assertEquals(o2, o);
-        o2.setCount(3);
-        assertNotEquals(o, o2);
+        Query q = new Query();
+        q.setRrname("foo");
+        assertEquals(q, q);
+        Query q2 = new Query();
+        q2.setRrname("foo");
+        assertEquals(q, q2);
+        assertEquals(q2, q);
+        q2.setRrname("bar");
+        assertNotEquals(q, q2);
     }
 }

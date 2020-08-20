@@ -19,48 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TestInputProcessor implements InputProcessor {
-    public List<Observation> observations;
-    public List<DumpRequest> dumpRequests;
-    public List<BackupRequest> backupRequests;
-    public List<Query> queries;
-
-    public TestInputProcessor() {
-        observations = new ArrayList<>();
-        dumpRequests = new ArrayList<>();
-        backupRequests = new ArrayList<>();
-        queries = new ArrayList<>();
-
-    }
-
-    @Override
-    public void handle(Observation o) throws BalboaException {
-        observations.add(o);
-    }
-
-    @Override
-    public void handle(DumpRequest d) throws BalboaException {
-        dumpRequests.add(d);
-    }
-
-    @Override
-    public void handle(BackupRequest b) throws BalboaException {
-        backupRequests.add(b);
-    }
-
-    @Override
-    public void handle(Query q, List<Observation> obs) throws BalboaException {
-        queries.add(q);
-        Observation o = new Observation();
-        o.setRrname("foobarbaz");
-        obs.add(o);
-    }
-
-    @Override
-    public void close() {};
+public interface InputProcessor {
+    public abstract void handle(Observation o) throws BalboaException;
+    public abstract void handle(DumpRequest d) throws BalboaException;
+    public abstract void handle(BackupRequest b) throws BalboaException;
+    public abstract void handle(Query q, List<Observation> obs) throws BalboaException;
+    public abstract void close();
 }

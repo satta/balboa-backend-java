@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,36 +31,51 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BackupRequestTests {
+public class ObservationTests {
     @Test
-    @DisplayName("dump request msgpack round-trip")
+    @DisplayName("observation msgpack round-trip")
     void msgPackRoundtrip() {
-        BackupRequest b = new BackupRequest();
-        b.path = "foo";
+        Observation o = new Observation();
+        o.setRdata("rdata");
+        o.setRrname("rrname");
+        o.setRrtype("X");
+        o.setFirst_seen(12345);
+        o.setLast_seen(54321);
+        o.setCount(2);
         MessageBufferPacker mp = MessagePack.newDefaultBufferPacker();
         try {
-            b.pack(mp);
+            o.pack(mp);
             mp.flush();
             byte[] v = mp.toByteArray();
             MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(v);
-            BackupRequest b2 = BackupRequest.unpack(unpacker);
-            assertEquals(b, b2);
+            Observation o2 = Observation.unpack(unpacker);
+            assertEquals(o, o2);
         } catch (IOException e) {
             fail();
         }
     }
 
     @Test
-    @DisplayName("dump request equals override")
+    @DisplayName("observation equals override")
     void equalsImplementation() {
-        BackupRequest b = new BackupRequest();
-        b.path = "foo";
-        assertEquals(b, b);
-        BackupRequest b2 = new BackupRequest();
-        b2.path = "foo";
-        assertEquals(b, b2);
-        assertEquals(b2, b);
-        b2.path = "bar";
-        assertNotEquals(b, b2);
+        Observation o = new Observation();
+        o.setRdata("rdata");
+        o.setRrname("rrname");
+        o.setRrtype("X");
+        o.setFirst_seen(12345);
+        o.setLast_seen(54321);
+        o.setCount(2);
+        assertEquals(o, o);
+        Observation o2 = new Observation();
+        o2.setRdata("rdata");
+        o2.setRrname("rrname");
+        o2.setRrtype("X");
+        o2.setFirst_seen(12345);
+        o2.setLast_seen(54321);
+        o2.setCount(2);
+        assertEquals(o, o2);
+        assertEquals(o2, o);
+        o2.setCount(3);
+        assertNotEquals(o, o2);
     }
 }

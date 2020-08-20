@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,36 +31,36 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QueryTests {
+public class DumpRequestTests {
     @Test
-    @DisplayName("query msgpack round-trip")
+    @DisplayName("dump request msgpack round-trip")
     void msgPackRoundtrip() {
-        Query q = new Query();
-        q.setRrname("foo");
+        DumpRequest d = new DumpRequest();
+        d.path = "foo";
         MessageBufferPacker mp = MessagePack.newDefaultBufferPacker();
         try {
-            q.pack(mp);
+            d.pack(mp);
             mp.flush();
             byte[] v = mp.toByteArray();
             MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(v);
-            Query q2 = Query.unpack(unpacker);
-            assertEquals(q, q2);
+            DumpRequest d2 = DumpRequest.unpack(unpacker);
+            assertEquals(d, d2);
         } catch (IOException e) {
             fail();
         }
     }
 
     @Test
-    @DisplayName("query equals override")
+    @DisplayName("dump request equals override")
     void equalsImplementation() {
-        Query q = new Query();
-        q.setRrname("foo");
-        assertEquals(q, q);
-        Query q2 = new Query();
-        q2.setRrname("foo");
-        assertEquals(q, q2);
-        assertEquals(q2, q);
-        q2.setRrname("bar");
-        assertNotEquals(q, q2);
+        DumpRequest d = new DumpRequest();
+        d.path = "foo";
+        assertEquals(d, d);
+        DumpRequest d2 = new DumpRequest();
+        d2.path = "foo";
+        assertEquals(d, d2);
+        assertEquals(d2, d);
+        d2.path = "bar";
+        assertNotEquals(d, d2);
     }
 }

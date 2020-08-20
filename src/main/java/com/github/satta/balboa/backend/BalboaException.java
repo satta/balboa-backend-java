@@ -19,34 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package name.steinbiss.balboa.backend;
+package com.github.satta.balboa.backend;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+public class BalboaException extends RuntimeException {
+    private String message;
 
-public class BackendWorker implements Runnable {
-    private BackendEngine e;
-    private InputProcessor p;
-    private BufferedInputStream ins;
-    private BufferedOutputStream outs;
-
-    public BackendWorker(Socket socket, InputProcessor p) throws IOException {
-        this.ins = new BufferedInputStream(socket.getInputStream());
-        this.outs = new BufferedOutputStream(socket.getOutputStream());
-        this.e = new BackendEngine(this.ins, this.outs);
-        this.p = p;
+    public BalboaException(String message) {
+        this.message = message;
     }
 
-    public void run() {
-        try {
-            this.e.run(this.p);
-            this.ins.close();
-            this.outs.close();
-            this.p.close();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+    public String getMessage() {
+        return message;
     }
 }
