@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.satta</groupId>
   <artifactId>balboa-backend-java</artifactId>
-  <name>Balboa Java backend</name>
-  <version>0.1-SNAPSHOT</version>
+  <name>balboa-backend-java</name>
+  <version>0.1</version>
   <description>A balboa backend for Java.</description>
   <url>https://github.com/satta/balboa-backend-java</url>
   <issueManagement>
