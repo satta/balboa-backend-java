@@ -11,7 +11,7 @@
 
     <groupId>com.github.satta</groupId>
     <artifactId>balboa-backend-java</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
 
     <dependencies>
         <dependency>
@@ -65,7 +65,7 @@
         <developerConnection>
             scm:git:ssh://git@github.com/satta/balboa-backend-java.git
         </developerConnection>
-      <tag>balboa-backend-java-0.1</tag>
+      <tag>balboa-backend-java-0.3</tag>
     </scm>
 
     <developers>
