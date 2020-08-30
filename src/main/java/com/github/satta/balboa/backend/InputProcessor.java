@@ -23,16 +23,10 @@ package com.github.satta.balboa.backend;
 
 import java.io.IOException;
 
-@FunctionalInterface
-interface ObservationStreamConsumer
-{
-    void submit(Observation o) throws IOException;
-}
-
 public interface InputProcessor {
-    public abstract void handle(Observation o) throws BalboaException;
-    public abstract void handle(DumpRequest d) throws BalboaException;
-    public abstract void handle(BackupRequest b) throws BalboaException;
-    public abstract void handle(Query q, ObservationStreamConsumer submitResult) throws BalboaException, IOException;
-    public abstract void close();
+    void handle(Observation o) throws BalboaException;
+    void handle(DumpRequest d) throws BalboaException;
+    void handle(BackupRequest b) throws BalboaException;
+    void handle(Query q, ObservationStreamConsumer submitResult) throws BalboaException, IOException;
+    void close();
 }
