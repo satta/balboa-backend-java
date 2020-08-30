@@ -83,6 +83,7 @@
                 <version>1.10.b1</version>
                 <configuration>
                     <header>${license.dir}/License.txt</header>
+                    <strictCheck>true</strictCheck>
                     <properties>
                         <project>
                             ${project.name}
@@ -90,7 +91,7 @@
                         <founder>${project.organization.name}</founder>
                         <year>${project.inceptionYear}</year>
                         <website>${founder-website}</website>
-                        <strictCheck>true</strictCheck>
+
                     </properties>
                     <includes>
                         <include>src/main/java/**</include>
