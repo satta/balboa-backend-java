@@ -22,7 +22,7 @@
 package com.github.satta.balboa.backend;
 
 public class ProtocolException extends RuntimeException {
-    private String message;
+    private final String message;
 
     public ProtocolException(String message) {
         this.message = message;

@@ -27,6 +27,9 @@ public class MessageID {
     public static final int BACKUP_REQUEST = 3;
     public static final int DUMP_REQUEST = 4;
     public static final int ERROR_RESPONSE = 128;
+    /**
+     * Not used so far, only streaming response implemented.
+     */
     public static final int QUERY_RESPONSE = 129;
     public static final int QUERY_STREAM_START_RESPONSE = 130;
     public static final int QUERY_STREAM_DATA_RESPONSE = 131;

@@ -22,7 +22,7 @@
 package com.github.satta.balboa.backend;
 
 public class BalboaException extends RuntimeException {
-    private String message;
+    private final String message;
 
     public BalboaException(String message) {
         this.message = message;

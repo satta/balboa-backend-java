@@ -77,11 +77,7 @@ public class Query {
 
     private static boolean equalsNullable(String a, String b) {
         if (a == null) {
-            if (b == null) {
-                return true;
-            } else {
-                return false;
-            }
+            return b == null;
         } else {
             if (b == null) {
                 return false;
@@ -168,26 +164,18 @@ public class Query {
         String rrname = this.rrname;
         if (this.rrname == null) {
             rrname = "<null>";
-        } else {
-            rrname = this.rrname;
         }
         String rdata = this.rdata;
         if (this.rdata == null) {
             rdata = "<null>";
-        } else {
-            rdata = this.rdata;
         }
         String rrtype = this.rrtype;
         if (this.rrtype == null) {
             rrtype = "<null>";
-        } else {
-            rrtype = this.rrtype;
         }
         String sensorid = this.sensorid;
         if (this.sensorid == null) {
             sensorid = "<null>";
-        } else {
-            sensorid = this.sensorid;
         }
         packer
                 .packMapHeader(9)

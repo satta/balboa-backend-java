@@ -27,10 +27,10 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class BackendWorker implements Runnable {
-    private BackendEngine e;
-    private InputProcessor p;
-    private BufferedInputStream ins;
-    private BufferedOutputStream outs;
+    private final BackendEngine e;
+    private final InputProcessor p;
+    private final BufferedInputStream ins;
+    private final BufferedOutputStream outs;
 
     public BackendWorker(Socket socket, InputProcessor p) throws IOException {
         this.ins = new BufferedInputStream(socket.getInputStream());

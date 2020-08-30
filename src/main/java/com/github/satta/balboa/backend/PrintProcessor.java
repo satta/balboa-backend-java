@@ -21,8 +21,6 @@
  */
 package com.github.satta.balboa.backend;
 
-import java.util.List;
-
 public class PrintProcessor implements InputProcessor {
 
     @Override

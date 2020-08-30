@@ -13,7 +13,7 @@ The methods to be implemented refer to the various message types:
 
 ```Java
 @FunctionalInterface
-interface ObservationStreamConsumer
+public interface ObservationStreamConsumer
 {
     void submit(Observation o) throws IOException;
 }
