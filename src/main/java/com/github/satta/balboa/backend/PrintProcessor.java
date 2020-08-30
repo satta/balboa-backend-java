@@ -43,7 +43,7 @@ public class PrintProcessor implements InputProcessor {
     }
 
     @Override
-    public void handle(Query q, List<Observation> obs) throws BalboaException {
+    public void handle(Query q, ObservationStreamConsumer osc) throws BalboaException {
         System.out.println("Query " + q);
     }
 

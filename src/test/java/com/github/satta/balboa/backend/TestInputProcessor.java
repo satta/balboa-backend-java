@@ -21,6 +21,7 @@
  */
 package com.github.satta.balboa.backend;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +55,11 @@ public class TestInputProcessor implements InputProcessor {
     }
 
     @Override
-    public void handle(Query q, List<Observation> obs) throws BalboaException {
+    public void handle(Query q, ObservationStreamConsumer osc) throws BalboaException, IOException {
         queries.add(q);
         Observation o = new Observation();
         o.setRrname("foobarbaz");
-        obs.add(o);
+        osc.submit(o);
     }
 
     @Override

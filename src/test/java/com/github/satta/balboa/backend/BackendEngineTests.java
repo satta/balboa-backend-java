@@ -49,7 +49,8 @@ public class BackendEngineTests {
             OuterMessage.pack(MessageID.QUERY_REQUEST, packer, innerPacker);
             packer.flush();
             ByteArrayInputStream is = new ByteArrayInputStream(packer.toByteArray());
-            BackendEngine e = new BackendEngine(is, null);
+            ByteArrayOutputStream os= new ByteArrayOutputStream();
+            BackendEngine e = new BackendEngine(is, os);
             TestInputProcessor p = new TestInputProcessor();
             e.run(p);
             assertEquals(p.queries.size(), 1);
@@ -58,6 +59,7 @@ public class BackendEngineTests {
             assertEquals(p.queries.get(0).getRdata(), "rdata");
             assertEquals(p.queries.get(0).getRrtype(), "rrtype");
             assertEquals(p.queries.get(0).getRrname(), "rrname");
+            assertTrue(os.size() > 0);
             assertEquals(p.observations.size(), 0);
             assertEquals(p.dumpRequests.size(), 0);
             assertEquals(p.backupRequests.size(), 0);

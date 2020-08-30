@@ -95,13 +95,11 @@ public class BackendEngine {
                             break;
                         case MessageID.QUERY_REQUEST:
                             Query q = Query.unpack(innerUnpacker);
-                            ArrayList<Observation> obs = new ArrayList<Observation>();
-                            p.handle(q, obs);
                             if (out != null) {
                                 streamResponseStart(out);
-                                for (Observation ob : obs) {
-                                    streamResponseData(out, ob);
-                                }
+                                p.handle(q, observation -> {
+                                    streamResponseData(out, observation);
+                                });
                                 streamResponseEnd(out);
                                 out.flush();
                             }
