@@ -12,16 +12,22 @@ interface, which is called for each incoming message.
 The methods to be implemented refer to the various message types:
 
 ```Java
+@FunctionalInterface
+interface ObservationStreamConsumer
+{
+    void submit(Observation o) throws IOException;
+}
+
 public interface InputProcessor {
     public abstract void handle(Observation o) throws BalboaException;
     public abstract void handle(DumpRequest d) throws BalboaException;
     public abstract void handle(BackupRequest b) throws BalboaException;
-    public abstract void handle(Query q, List<Observation> obs) throws BalboaException;
+    public abstract void handle(Query q, ObservationStreamConsumer submitResult) throws BalboaException, IOException;
     public abstract void close();
 }
 ```
 
-Here's the simplest forking server that starts a new processing engine for each new incoming connection:
+Here's the simplest forking server that starts a new processing engine for each new incoming connection and just prints incoming mesages:
 
 ```Java
 public class Main {
